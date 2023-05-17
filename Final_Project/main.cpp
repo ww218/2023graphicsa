@@ -5,12 +5,17 @@ GLMmodel * head =NULL;///week13-1
 GLMmodel * uparmR =NULL;///week13-1
 GLMmodel * lowarmR =NULL;///week13-1
 GLMmodel * body =NULL;///week13-1
-int show[4]={0,1,0,0};///week13-3
+int show[4]={1,1,1,1};///week13-3
+int ID = 0;///week14 3-1 //0頭 1身體 2上手臂 3下手臂
 void keyboard(unsigned char key,int x, int y){///week13-3
-    if(key=='0') show[0] = !show[0];
-    if(key=='1') show[1] = !show[1];
-    if(key=='2') show[2] = !show[2];
-    if(key=='3') show[3] = !show[3];
+    if(key=='0') ID = 0;///week14 3-1
+    if(key=='1') ID = 1;///week14 3-1
+    if(key=='2') ID = 2;///week14 3-1
+    if(key=='3') ID = 3;///week14 3-1
+    ///if(key=='0') show[0] = !show[0];
+    ///if(key=='1') show[1] = !show[1];
+    ///if(key=='2') show[2] = !show[2];
+    ///if(key=='3') show[3] = !show[3];
     glutPostRedisplay();
 }///原來的keyboard先註解
 FILE * fout=NULL;///step2-2
@@ -29,12 +34,24 @@ void display()
             lowarmR = glmReadOBJ("model/lowarmR.obj");///week13-3
             ///glmUnitize(body);///week13-1
         }
+        if(ID==0)glColor3f(1,0,0);///week14 3-1
+        else glColor3f(1,1,1);///week14 3-1
         if(show[0]) glmDraw(body, GLM_MATERIAL);///week13-1
+
+        if(ID==1)glColor3f(1,0,0);///week14 3-1
+        else glColor3f(1,1,1);///week14 3-1
         if(show[1]) glmDraw(head, GLM_MATERIAL);///week13-2
+
         glPushMatrix();///week13-4
             glTranslatef(teapotX,teapotY,0);///week13-4
+
+            if(ID==2)glColor3f(1,0,0);///week14 3-1
+            else glColor3f(1,1,1);///week14 3-1
             if(show[2]) glmDraw(uparmR, GLM_MATERIAL);///week13-3
         glPopMatrix();///week13-4
+
+        if(ID==3)glColor3f(1,0,0);///week14 3-1
+        else glColor3f(1,1,1);///week14 3-1
         if(show[3]) glmDraw(lowarmR, GLM_MATERIAL);///week13-3
     glPopMatrix();
     glutSwapBuffers();
